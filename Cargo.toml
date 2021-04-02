@@ -21,6 +21,9 @@ kms = ["sapp-kms"]
 # disabled by default
 log-impl = []
 
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+
 [target.'cfg(windows)'.dependencies]
 sapp-windows = { path ="./native/sapp-windows", version = "=0.2.16" }
 

@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 use crate::Context;
 
 use crate::sapp::{self, sapp_keycode, sapp_mousebutton};
@@ -28,7 +30,7 @@ impl From<sapp_mousebutton> for MouseButton {
     }
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Hash, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Hash, Eq, Serialize, Deserialize)]
 #[repr(u32)]
 pub enum KeyCode {
     Space,
