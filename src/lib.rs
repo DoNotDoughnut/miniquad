@@ -64,7 +64,7 @@ pub mod date {
 
         let time = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap_or_else(|e| panic!(e));
+            .unwrap_or_else(|e| panic!("{}", e));
         time.as_secs_f64()
     }
 
@@ -159,6 +159,7 @@ impl Context {
     }
 
     /// Set the application's window size.
+    #[allow(unused_variables)]
     pub fn set_window_size(&self, new_width: u32, new_height: u32) {
         #[cfg(not(any(
             target_os = "linux",
@@ -177,6 +178,7 @@ impl Context {
         }
     }
 
+    #[allow(unused_variables)]
     pub fn set_fullscreen(&self, fullscreen: bool) {
         #[cfg(not(any(
             target_os = "linux",
@@ -399,7 +401,7 @@ where
 {
     let mut desc: sapp::sapp_desc = unsafe { std::mem::zeroed() };
 
-    let title = CString::new(conf.window_title.as_bytes()).unwrap_or_else(|e| panic!(e));
+    let title = CString::new(conf.window_title.as_bytes()).unwrap_or_else(|e| panic!("{}", e));
 
     let mut user_data = Box::new(UserDataState::Uninitialized(Box::new(f)));
 
@@ -415,7 +417,8 @@ where
         target_os = "macos",
         target_os = "ios",
         target_os = "android",
-    )))] {
+    )))]
+    {
         desc.window_resizable = conf.window_resizable as _;
     }
 
