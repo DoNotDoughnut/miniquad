@@ -44,19 +44,6 @@ pub use sapp::gl;
 
 use std::ffi::CString;
 
-#[deprecated(
-    since = "0.3",
-    note = "libc rand is slow and incosistent across platforms. Please use quad-rnd crate instead."
-)]
-pub unsafe fn rand() -> i32 {
-    sapp::rand()
-}
-#[deprecated(
-    since = "0.3",
-    note = "libc rand is slow and incosistent across platforms. Please use quad-rnd crate instead."
-)]
-pub const RAND_MAX: u32 = sapp::RAND_MAX;
-
 pub mod date {
     #[cfg(not(target_arch = "wasm32"))]
     pub fn now() -> f64 {
@@ -64,7 +51,7 @@ pub mod date {
 
         let time = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap_or_else(|e| panic!(e));
+            .unwrap_or_else(|e| panic!("{}", e));
         time.as_secs_f64()
     }
 
@@ -399,7 +386,7 @@ where
 {
     let mut desc: sapp::sapp_desc = unsafe { std::mem::zeroed() };
 
-    let title = CString::new(conf.window_title.as_bytes()).unwrap_or_else(|e| panic!(e));
+    let title = CString::new(conf.window_title.as_bytes()).unwrap_or_else(|e| panic!("{}", e));
 
     let mut user_data = Box::new(UserDataState::Uninitialized(Box::new(f)));
 
