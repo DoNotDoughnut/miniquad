@@ -400,7 +400,6 @@ where
     desc.window_title = title.as_ptr();
 
     #[cfg(not(any(
-        target_os = "linux",
         target_os = "macos",
         target_os = "ios",
         target_os = "android",
